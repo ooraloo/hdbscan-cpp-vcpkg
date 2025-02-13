@@ -19,7 +19,7 @@ constexpr InputIt std_find(InputIt first, InputIt last, const T& value)
     return last;
 }
 
-std::vector<double> HdbscanAlgorithm::CalculateCoreDistances(std::vector<std::vector<double>> distances, int minClusterSize)
+std::vector<double> HdbscanAlgorithm::CalculateCoreDistances(std::vector<std::vector<double> > distances, int minClusterSize)
 {
     auto length = distances.size();
     std::vector<double> coreDistances(length);
@@ -54,7 +54,7 @@ std::vector<double> HdbscanAlgorithm::CalculateCoreDistances(std::vector<std::ve
     return coreDistances;
 }
 
-UndirectedGraph HdbscanAlgorithm::ConstructMst(std::vector<std::vector<double>> distances, std::vector<double> coreDistances)
+UndirectedGraph HdbscanAlgorithm::ConstructMst(std::vector<std::vector<double> > distances, std::vector<double> coreDistances)
 {
     auto length = static_cast<int>(distances.size());
     auto numMRDNeighbors = 2 * length - 1;
@@ -131,7 +131,7 @@ UndirectedGraph HdbscanAlgorithm::ConstructMst(std::vector<std::vector<double>> 
 void HdbscanAlgorithm::ComputeHierarchyAndClusterTree(
     UndirectedGraph* mst,
     int minClusterSize,
-    std::vector<std::vector<int>>& hierarchy,
+    std::vector<std::vector<int> >& hierarchy,
     std::vector<double>& pointNoiseLevels,
     std::vector<int>& pointLastClusters,
     std::vector<HdbscanCluster*>& clusters)
@@ -387,14 +387,14 @@ void HdbscanAlgorithm::PropagateTree(std::vector<HdbscanCluster*>& clusters)
     }
 }
 
-std::vector<int> HdbscanAlgorithm::FindProminentClusters(std::vector<HdbscanCluster*>& clusters, std::vector<std::vector<int>>& hierarchy, int numPoints)
+std::vector<int> HdbscanAlgorithm::FindProminentClusters(std::vector<HdbscanCluster*>& clusters, std::vector<std::vector<int> >& hierarchy, int numPoints)
 {
     //Take the list of propagated clusters from the root cluster:
     std::vector<HdbscanCluster*> solution = clusters[1]->PropagatedDescendants;
     std::vector<int> flatPartitioning(numPoints);
 
     //Store all the hierarchy positions at which to find the birth points for the flat clustering:
-    std::map<int, std::vector<int>> significantHierarchyPositions;
+    std::map<int, std::vector<int> > significantHierarchyPositions;
 
     std::vector<HdbscanCluster*>::iterator it = solution.begin();
     while (it != solution.end())
@@ -410,7 +410,7 @@ std::vector<int> HdbscanAlgorithm::FindProminentClusters(std::vector<HdbscanClus
     //Go through the hierarchy file, setting labels for the flat clustering:
     while (significantHierarchyPositions.size())
     {
-        std::map<int, std::vector<int>>::iterator entry = significantHierarchyPositions.begin();
+        std::map<int, std::vector<int> >::iterator entry = significantHierarchyPositions.begin();
         std::vector<int> clusterList = entry->second;
         int hierarchyPosition = entry->first;
         significantHierarchyPositions.erase(entry->first);

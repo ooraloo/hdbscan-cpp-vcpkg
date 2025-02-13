@@ -9,7 +9,7 @@
 const int NUM_INPUTS = 300;
 const int MIN_POINTS = 5;
 const int MIN_CLUSTER_SIZE = 5;
-const std::vector<double> m_testDataset = {
+const std::vector<double> m_testDataset({
 	0.837, 2.136,
 	-1.414, 7.410,
 	1.155, 5.100,
@@ -310,9 +310,9 @@ const std::vector<double> m_testDataset = {
 	0.439, 4.536,
 	0.369, 7.791,
 	-1.791, 2.750
-};
+});
 
-std::vector<int> m_correctClusters = {
+std::vector<int> m_correctClusters({
 	2, 5, 6, 5, 2, 2, 7, 6, 5, 5, 7, 5, 6, 5, 2, 6, 6, 2, 7, 7, 2, 2, 6, 7, 7, 0, 2, 6, 0, 6, 5, 5, 6, 5, 
 	5, 5, 5, 5, 7, 2, 6, 7, 6, 6, 7, 7, 5, 7, 5, 2, 7, 2, 5, 2, 2, 7, 5, 7, 5, 2, 5, 6, 5, 7, 7, 7, 5, 2, 
 	5, 7, 6, 7, 5, 7, 7, 5, 7, 6, 2, 5, 2, 6, 2, 2, 5, 6, 2, 6, 5, 5, 6, 2, 5, 7, 7, 6, 2, 2, 6, 7, 5, 2, 
@@ -322,7 +322,7 @@ std::vector<int> m_correctClusters = {
 	6, 5, 7, 5, 6, 5, 6, 7, 6, 6, 5, 7, 7, 2, 2, 6, 5, 2, 2, 7, 2, 7, 0, 5, 5, 6, 6, 5, 6, 2, 7, 6, 2, 7, 
 	5, 7, 2, 6, 2, 5, 5, 5, 5, 7, 7, 5, 0, 7, 2, 6, 7, 7, 0, 2, 2, 5, 6, 6, 7, 2, 5, 7, 6, 5, 6, 2, 2, 7, 
 	7, 0, 2, 2, 2, 6, 5, 5, 2, 2, 6, 2, 2, 2, 5, 7, 5, 6, 2, 2, 5, 5, 5, 2, 2, 6, 5, 7
-};
+});
 
 double euclidean_distance(const double* x, const double* y, int n)
 {
@@ -339,7 +339,7 @@ double euclidean_distance(const double* x, const double* y, int n)
 int main() {
 	std::cout << "Testing HDBSCAN library...\n";
 
-	std::vector<std::vector<double>> distanceMatrix(NUM_INPUTS);
+	std::vector<std::vector<double> > distanceMatrix(NUM_INPUTS);
     auto ndim = m_testDataset.size() / NUM_INPUTS;
 
     for (int i = 0; i < NUM_INPUTS; i++)
@@ -359,7 +359,7 @@ int main() {
 
     std::vector<double> pointNoiseLevels(NUM_INPUTS);
     std::vector<int> pointLastClusters(NUM_INPUTS);
-    std::vector<std::vector<int>> hierarchy;
+    std::vector<std::vector<int> > hierarchy;
     std::vector<HdbscanCluster*> clusters;
 
     HdbscanAlgorithm::ComputeHierarchyAndClusterTree(&minimumSpanningTree, MIN_CLUSTER_SIZE, hierarchy, pointNoiseLevels, pointLastClusters, clusters);

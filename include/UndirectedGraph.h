@@ -24,6 +24,6 @@ private:
     std::vector<int> m_verticesA;
     std::vector<int> m_verticesB;
     std::vector<double> m_edgeWeights;
-    std::vector<std::vector<int>> m_edges;
+    std::vector<std::vector<int> > m_edges;
 };
 

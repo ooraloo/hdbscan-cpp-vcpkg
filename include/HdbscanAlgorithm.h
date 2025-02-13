@@ -19,9 +19,9 @@ public:
     /// <param name="distances">A vector of vectors where index [i][j] indicates the jth attribute of data point i</param>
     /// <param name="k">Each point's core distance will be it's distance to the kth nearest neighbor</param>
     /// <returns> An array of core distances</returns>
-    static std::vector<double> CalculateCoreDistances(std::vector<std::vector<double>> distances, int minClusterSize);
+    static std::vector<double> CalculateCoreDistances(std::vector<std::vector<double> > distances, int minClusterSize);
 
-    static UndirectedGraph ConstructMst(std::vector<std::vector<double>> distances, std::vector<double> coreDistances);
+    static UndirectedGraph ConstructMst(std::vector<std::vector<double> > distances, std::vector<double> coreDistances);
 
     /// <summary>
     /// Propagates constraint satisfaction, stability, and lowest child death level from each child
@@ -32,7 +32,7 @@ public:
     static void ComputeHierarchyAndClusterTree(
         UndirectedGraph* mst,
         int minClusterSize,
-        std::vector<std::vector<int>>& hierarchy,
+        std::vector<std::vector<int> >& hierarchy,
         std::vector<double>& pointNoiseLevels,
         std::vector<int>& pointLastClusters,
         std::vector<HdbscanCluster*>& clusters);
@@ -40,7 +40,7 @@ public:
     static void PropagateTree(std::vector<HdbscanCluster*>& clusters);
 
     // Label of 0 represents noise
-    static std::vector<int> FindProminentClusters(std::vector<HdbscanCluster*>& clusters, std::vector<std::vector<int>>& hierarchy, int numPoints);
+    static std::vector<int> FindProminentClusters(std::vector<HdbscanCluster*>& clusters, std::vector<std::vector<int> >& hierarchy, int numPoints);
 
     static std::vector<double> FindMembershipScore(std::vector<int> clusterids, std::vector<double> coreDistances);
 
