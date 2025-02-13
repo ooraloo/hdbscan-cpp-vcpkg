@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(HdbscanLibrary)
 
+option(BUILD_TESTS "Build tests" OFF)
+
 add_library(hdbscan STATIC
     src/HdbscanAlgorithm.cpp
     src/UndirectedGraph.cpp
@@ -13,9 +15,6 @@ target_include_directories(hdbscan PUBLIC
 )
 
 set_target_properties(hdbscan PROPERTIES CXX_STANDARD 17)
-
-add_executable(test_hdbscan test/FourProminentClusterExample.cpp)
-target_link_libraries(test_hdbscan PRIVATE hdbscan)
 
 install(TARGETS hdbscan
     EXPORT HDBSCANTargets
@@ -31,3 +30,9 @@ install(EXPORT HDBSCANTargets
     NAMESPACE HDBSCAN::
     DESTINATION share/hdbscan
 )
+
+if(BUILD_TESTS)
+    add_executable(test_hdbscan test/FourProminentClusterExample.cpp)
+    target_link_libraries(test_hdbscan PRIVATE hdbscan)
+    target_include_directories(test_hdbscan PRIVATE "${CMAKE_SOURCE_DIR}/include")
+endif()
